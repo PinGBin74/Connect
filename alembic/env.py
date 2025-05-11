@@ -4,8 +4,8 @@ from logging.config import fileConfig
 from sqlalchemy.ext.asyncio import create_async_engine
 
 from alembic import context
-from backend.app.infrastructure.database.models import Base
-from backend.app.settings import Settings
+from app.infrastructure.database.models import Base
+from app.settings import Settings
 
 from backend.app.users.user_profle import UserProfile
 
