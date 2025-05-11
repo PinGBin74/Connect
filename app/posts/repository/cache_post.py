@@ -11,10 +11,17 @@ class PostCache:
     async def get_posts(self) -> list[PostSchema]:
         async with self.redis as redis:
             posts_json = await redis.lrange("posts", 0, -1)
-            return [PostSchema.model_validate(json.load(post)) for post in posts_json]
+            if not posts_json:
+                return []
+            return [PostSchema.model_validate(json.loads(post)) for post in posts_json]
 
     async def set_posts(self, posts: list[PostSchema]):
-        posts_json = [post.model_dump_json() for post in posts]
+        if not posts:
+            async with self.redis as redis:
+                await redis.delete("posts")
+            return
+
+        posts_json = [post.model_dump_json() for post in posts if post is not None]
         async with self.redis as redis:
             await redis.delete("posts")
             if posts_json:

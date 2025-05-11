@@ -34,13 +34,13 @@ async def create_post(
 )
 async def patch_post(
     post_id: int,
-    username: str,
+    content: str,
     post_service: Annotated[PostService, Depends(get_post_service)],
     user_id: int = Depends(get_request_user_id),
 ):
     try:
         return await post_service.update_post_name(
-            post_id=post_id, username=username, user_id=user_id
+            post_id=post_id, content=content, user_id=user_id
         )
     except PostNotFound as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=e.detail)

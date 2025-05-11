@@ -25,17 +25,17 @@ async def get_posts_cache_repository() -> PostCache:
     return PostCache(redis_connection)
 
 
+async def get_user_repository(
+    db_session: AsyncSession = Depends(get_db_session),
+) -> UserRepository:
+    return UserRepository(db_session=db_session)
+
+
 async def get_post_service(
     post_repository: PostRepository = Depends(get_posts_repository),
     post_cache: PostCache = Depends(get_posts_cache_repository),
 ) -> PostService:
     return PostService(post_repository=post_repository, post_cache=post_cache)
-
-
-async def get_user_repository(
-    db_session: AsyncSession = Depends(get_db_session),
-) -> UserRepository:
-    return UserRepository(db_session=db_session)
 
 
 async def get_async_client() -> httpx.AsyncClient:
