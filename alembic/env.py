@@ -7,7 +7,8 @@ from alembic import context
 from app.infrastructure.database.models import Base
 from app.settings import Settings
 
-from backend.app.users.user_profle import UserProfile
+from app.users.user_profile.models import UserProfile
+from app.posts.models import Posts
 
 config = context.config
 

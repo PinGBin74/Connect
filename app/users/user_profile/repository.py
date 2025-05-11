@@ -29,8 +29,6 @@ class UserRepository:
         async with self.db_session as session:
             return (await session.execute(query)).scalar_one_or_none()
 
-
-
     async def get_user_by_username(self, username: str) -> UserProfile | None:
         """
         Get user from DataBase by username.

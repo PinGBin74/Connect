@@ -18,9 +18,5 @@ class UserNotFound(Exception):
     detail = "User was not found"
 
 
-class WeatherUnaveliable(Exception):
-    detail = "Weather service unavailable"
-
-
-class UserAlreaydeExist(Exception):
-    detail = "Пользователь с таким email уже существует"
+class PostNotFound(Exception):
+    detail = "Post was not found"

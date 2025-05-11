@@ -5,7 +5,6 @@ from redis import Redis
 from app.users.user_profile.schema import UserCreateSchema
 
 
-
 class UserCache:
     def __init__(self, redis: Redis):
         self.redis = redis

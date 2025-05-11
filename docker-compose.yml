@@ -11,7 +11,7 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: connect
-      POSTGRES_DB: connect
+      POSTGRES_DB: connect_db
 
   cache:
     image: redis:7.2.4-alpine
