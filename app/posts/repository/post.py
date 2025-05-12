@@ -1,6 +1,4 @@
-from datetime import datetime as dt, timedelta
-import datetime
-from fastapi import HTTPException
+from datetime import datetime as dt
 from sqlalchemy import select, delete, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.posts.models import Posts

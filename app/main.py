@@ -15,12 +15,11 @@ sentry_sdk.init(
 )
 
 app = FastAPI(
-    title="Weather Site API",
-    description="API for weather information and user management",
+    title="Connect Site API",
+    description="API for connect information and user management",
     version="0.1.0",
 )
 
-# Настройка CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

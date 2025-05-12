@@ -12,7 +12,7 @@ async def login(
     body: UserCreateSchema, auth_service: AuthService = Depends(get_auth_service)
 ):
     try:
-        result = await auth_service.login(body.email, body.password)
+        result = await auth_service.login(body.username, body.password)
         return result
     except UserNotFoundException as e:
         raise HTTPException(status_code=404, detail=e.detail)

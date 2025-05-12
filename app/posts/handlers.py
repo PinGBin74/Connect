@@ -1,11 +1,12 @@
 from typing import Annotated
-
-from fastapi import APIRouter, status, Depends, HTTPException
+import uuid
+from fastapi import APIRouter, status, Depends, HTTPException, UploadFile, File, Form
 
 from app.dependecy import get_post_service, get_request_user_id
 from app.exception import PostNotFound
 from app.posts.schema import PostCreateSchema, PostSchema
 from app.posts.service import PostService
+from app.yandex_disk.service import YandexDiskService
 
 router = APIRouter(prefix="/posts", tags=["posts"])
 
@@ -20,11 +21,19 @@ async def get_posts(
 
 @router.post("/", response_model=PostSchema)
 async def create_post(
-    body: PostCreateSchema,
     post_service: Annotated[PostService, Depends(get_post_service)],
     user_id: int = Depends(get_request_user_id),
+    content: str = Form(...),
+    photo: UploadFile = File(None),
+    storage: YandexDiskService = Depends(lambda: YandexDiskService()),
 ):
-    post = await post_service.create_post(body, user_id)
+    photo_url = None
+    if photo:
+        file_extension = photo.filename.split(".")[-1]
+        filename = f"{uuid.uuid4()}.{file_extension}"
+        photo_url = await storage.upload_file(photo.file, filename)
+    post_data = PostCreateSchema(content=content, photo_url=photo_url)
+    post = await post_service.create_post(post_data, user_id)
     return post
 
 
