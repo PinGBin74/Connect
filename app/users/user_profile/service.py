@@ -17,3 +17,8 @@ class UserService:
         user = await self.user_repository.create_user(user_data)
         access_token = self.auth_service.generate_access_token(user_id=user.id)
         return UserLoginSchema(user_id=user.id, access_token=access_token)
+
+    async def create_user_with_photo(self, user_data: UserCreateSchema) -> UserLoginSchema:
+        user = await self.user_repository.create_user(user_data)
+        access_token = self.auth_service.generate_access_token(user_id=user.id)
+        return UserLoginSchema(user_id=user.id, access_token=access_token)

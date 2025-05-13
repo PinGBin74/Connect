@@ -15,6 +15,13 @@ class PostCache:
                 return []
             return [PostSchema.model_validate(json.loads(post)) for post in posts_json]
 
+    async def get_post(self, post_id: int) -> PostSchema | None:
+        async with self.redis as redis:
+            post_json = await redis.get(f"post:{post_id}")
+            if not post_json:
+                return []
+            return PostSchema.model_validate(json.loads(post_json))
+
     async def set_posts(self, posts: list[PostSchema]):
         if not posts:
             async with self.redis as redis:

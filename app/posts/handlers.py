@@ -19,6 +19,24 @@ async def get_posts(
     return posts
 
 
+@router.get("/id/{post_id}", response_model=PostSchema)
+async def get_post(
+    post_id: int,
+    post_service: Annotated[PostService, Depends(get_post_service)],
+):
+    post = await post_service.get_post(post_id)
+    return post
+
+
+@router.get("/username/{username}", response_model=list[PostSchema])
+async def get_posts_by_username(
+    username: str,
+    post_service: Annotated[PostService, Depends(get_post_service)],
+):
+    posts = await post_service.get_posts_by_username(username)
+    return posts
+
+
 @router.post("/", response_model=PostSchema)
 async def create_post(
     post_service: Annotated[PostService, Depends(get_post_service)],
@@ -28,7 +46,7 @@ async def create_post(
     storage: YandexDiskService = Depends(lambda: YandexDiskService()),
 ):
     photo_url = None
-    if photo:
+    if photo is not None:
         file_extension = photo.filename.split(".")[-1]
         filename = f"{uuid.uuid4()}.{file_extension}"
         photo_url = await storage.upload_file(photo.file, filename)

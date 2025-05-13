@@ -17,8 +17,18 @@ class PostService:
         if cache_post := await self.post_cache.get_posts():
             return cache_post
         posts = await self.post_repository.get_posts()
-        if posts:  # Проверяем, что список не пустой
+        if posts:
             await self.post_cache.set_posts(posts)
+        return posts
+
+    async def get_post(self, post_id: int) -> PostSchema:
+        if cache_post := await self.post_cache.get_post(post_id):
+            return cache_post
+        post = await self.post_repository.get_post(post_id)
+        return post
+
+    async def get_posts_by_username(self, username: str) -> list[PostSchema]:
+        posts = await self.post_repository.get_posts_by_username(username)
         return posts
 
     async def create_post(self, body: PostCreateSchema, user_id: int) -> PostSchema:
@@ -26,7 +36,6 @@ class PostService:
         if not post:
             raise HTTPException(status_code=500, detail="Failed to create post")
         post_schema = PostSchema.model_validate(post)
-        # Обновляем кэш после создания поста
         posts = await self.post_repository.get_posts()
         await self.post_cache.set_posts(posts)
         return post_schema
@@ -44,7 +53,6 @@ class PostService:
         )
         if not updated_post:
             raise PostNotFound
-        # Обновляем кэш после обновления поста
         posts = await self.post_repository.get_posts()
         await self.post_cache.set_posts(posts)
         return PostSchema.model_validate(updated_post)
