@@ -25,5 +25,7 @@ async def create_user(
         file_extension = photo.filename.split(".")[-1]
         filename = f"{uuid.uuid4()}.{file_extension}"
         photo_url = await storage.upload_file(photo.file, filename)
-    user_data = UserCreateSchema(username=username, password=password, photo_url=photo_url)
+    user_data = UserCreateSchema(
+        username=username, password=password, photo_url=photo_url
+    )
     return await user_service.create_user_with_photo(user_data)

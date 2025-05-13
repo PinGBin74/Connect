@@ -9,6 +9,7 @@ from app.settings import Settings
 
 from app.users.user_profile.models import UserProfile
 from app.posts.models import Posts
+from app.users.subscription.models import subscriptions
 
 config = context.config
 

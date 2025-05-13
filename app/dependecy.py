@@ -8,6 +8,8 @@ from app.exception import TokenExpired, TokenNotCorrect
 from app.posts.repository.cache_post import PostCache
 from app.posts.repository.post import PostRepository
 from app.posts.service import PostService
+from app.users.subscription.repository import SubscriptionRepository
+from app.users.subscription.service import SubscripionService
 from app.users.user_profile.repository import UserRepository
 from app.users.user_profile.service import UserService
 from app.users.auth.service import AuthService
@@ -56,6 +58,20 @@ async def get_user_service(
     auth_service: AuthService = Depends(get_auth_service),
 ) -> UserService:
     return UserService(user_repository=user_repository, auth_service=auth_service)
+
+
+async def get_subscription_reposiory(
+    db_session: AsyncSession = Depends(get_db_session),
+) -> SubscriptionRepository:
+    return SubscriptionRepository(db_session=db_session)
+
+
+async def get_subscription_service(
+    subscription_repository: SubscriptionRepository = Depends(
+        get_subscription_reposiory
+    ),
+) -> SubscripionService:
+    return SubscripionService(subscription_repository=subscription_repository)
 
 
 reusable_oauth2 = security.HTTPBearer()

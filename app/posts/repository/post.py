@@ -22,7 +22,9 @@ class PostRepository:
         result = await self.db_session.execute(select(Posts).where(Posts.id == post_id))
         return result.scalar_one_or_none()
 
-    async def get_user_posts_by_username(self, post_id: int, user_id: int) -> Posts | None:
+    async def get_user_posts_by_username(
+        self, post_id: int, user_id: int
+    ) -> Posts | None:
         query = select(Posts).where(Posts.id == post_id, Posts.user_id == user_id)
         async with self.db_session as session:
             post: Posts = (await session.execute(query)).scalar_one_or_none()

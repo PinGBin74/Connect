@@ -13,7 +13,11 @@ class UserRepository:
     async def create_user(self, user_data: UserCreateSchema) -> UserProfile:
         query = (
             insert(UserProfile)
-            .values(username=user_data.username, password=user_data.password, photo_url=user_data.photo_url)
+            .values(
+                username=user_data.username,
+                password=user_data.password,
+                photo_url=user_data.photo_url,
+            )
             .returning(UserProfile)
         )
 

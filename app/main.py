@@ -3,6 +3,8 @@ from app.settings import Settings
 from app.users.auth.handlers import router as auth_router
 from app.posts.handlers import router as posts_router
 from app.users.user_profile.handlers import router as user_router
+from app.users.subscription.handlers import router as subscription_router
+
 
 from fastapi.middleware.cors import CORSMiddleware
 import sentry_sdk
@@ -31,3 +33,4 @@ app.add_middleware(
 app.include_router(posts_router)
 app.include_router(user_router)
 app.include_router(auth_router)
+app.include_router(subscription_router)
