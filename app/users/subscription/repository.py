@@ -24,7 +24,6 @@ class SubscriptionRepository:
             if followed_id == follower_id:
                 return False
 
-            # Проверяем, существует ли уже такая подписка
             check_query = select(subscriptions).where(
                 (subscriptions.c.follower_id == follower_id)
                 & (subscriptions.c.following_id == followed_id)
