@@ -11,29 +11,22 @@ class YandexDiskService:
 
     async def upload_file(self, file_content: BinaryIO, filename: str) -> str:
         """
-        Загружает файл на Яндекс.Диск и возвращает публичную ссылку
-
-        Args:
-            file_content: Содержимое файла
-            filename: Имя файла
-
-        Returns:
-            str: Публичная ссылка на загруженный файл
+        Uploads file to Yandex.Disk and return public url.
         """
         try:
-            # Получаем URL для загрузки
+            # get upload url
             upload_url = await self.storage.get_upload_url(filename)
             logger.info(f"Got upload URL for {filename}")
 
-            # Загружаем файл
+            # download file
             await self.storage.upload_file_content(upload_url, file_content)
             logger.info(f"Uploaded file {filename}")
 
-            # Делаем файл публичным
+            # make file public
             await self.storage.publish_file(filename)
             logger.info(f"Published file {filename}")
 
-            # Получаем публичную ссылку
+            # get public url
             public_url = await self.storage.get_public_url(filename)
             logger.info(f"Got public URL for {filename}: {public_url}")
 
