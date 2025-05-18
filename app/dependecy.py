@@ -14,6 +14,20 @@ from app.users.user_profile.repository import UserRepository
 from app.users.user_profile.service import UserService
 from app.users.auth.service import AuthService
 from app.settings import Settings
+from app.users.users_settings.repository import SettingsRepository
+from app.users.users_settings.service import UserSettingsService
+
+
+def get_settings_repository(
+    db_session: AsyncSession = Depends(get_db_session),
+) -> SettingsRepository:
+    return SettingsRepository(db_session=db_session)
+
+
+def get_settings_service(
+    settings_repository: SettingsRepository = Depends(get_settings_repository),
+) -> UserSettingsService:
+    return UserSettingsService(user_settings=settings_repository)
 
 
 async def get_posts_repository(
@@ -92,3 +106,13 @@ async def get_request_user_id(
     except TokenNotCorrect as e:
         raise HTTPException(status_code=401, detail=e.detail)
     return user_id
+
+
+def get_current_user_id(
+    token: str = Depends(security.HTTPBearer()),
+    auth_service: AuthService = Depends(lambda: AuthService(None, Settings())),
+) -> int:
+    try:
+        return auth_service.get_user_id_from_access_token(token.credentials)
+    except (TokenExpired, TokenNotCorrect):
+        raise HTTPException(status_code=401, detail="Invalid or expired token")

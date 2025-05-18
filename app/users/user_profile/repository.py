@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.users.user_profile.models import UserProfile
 from app.users.user_profile.schema import UserCreateSchema
+from app.users.users_settings.models import UserSettings
 
 
 @dataclass
@@ -11,19 +12,23 @@ class UserRepository:
     db_session: AsyncSession
 
     async def create_user(self, user_data: UserCreateSchema) -> UserProfile:
-        query = (
-            insert(UserProfile)
-            .values(
-                username=user_data.username,
-                password=user_data.password,
-                photo_url=user_data.photo_url,
-            )
-            .returning(UserProfile)
-        )
-
         async with self.db_session as session:
-            result = await session.execute(query)
+            user_query = (
+                insert(UserProfile)
+                .values(
+                    username=user_data.username,
+                    password=user_data.password,
+                    photo_url=user_data.photo_url,
+                )
+                .returning(UserProfile)
+            )
+            result = await session.execute(user_query)
             user = result.scalar_one()
+            settings_query = insert(UserSettings).values(
+                user_id=user.id, delete_photo_after_days=True
+            )
+            await session.execute(settings_query)
+
             await session.commit()
             return user
 

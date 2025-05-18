@@ -1,6 +1,15 @@
 from typing import Annotated
 import uuid
-from fastapi import APIRouter, status, Depends, HTTPException, UploadFile, File, Form
+from fastapi import (
+    APIRouter,
+    Query,
+    status,
+    Depends,
+    HTTPException,
+    UploadFile,
+    File,
+    Form,
+)
 
 from app.dependecy import get_post_service, get_request_user_id
 from app.exception import PostNotFound
@@ -83,3 +92,12 @@ async def delete_post(
         await post_service.delete_post(post_id=post_id, user_id=user_id)
     except PostNotFound as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=e.detail)
+
+
+@router.get("/photo", response_model=list[PostSchema])
+async def get_posts_by_photo(
+    post_service: Annotated[PostService, Depends(get_post_service)],
+    has_photo: bool = Query(..., description="Filter by photo presence"),
+):
+    posts = await post_service.get_posts_by_photo_or_not(has_photo=has_photo)
+    return posts

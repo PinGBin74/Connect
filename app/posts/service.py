@@ -64,3 +64,9 @@ class PostService:
         if not post:
             raise PostNotFound
         await self.post_repository.delete_post(post_id=post_id, user_id=user_id)
+
+    async def get_posts_by_photo_or_not(self, has_photo: bool) -> list[PostCache]:
+        posts = await self.post_repository.get_posts_by_photo_or_not(has_photo)
+        if posts:
+            await self.post_cache.set_posts(posts)
+        return posts

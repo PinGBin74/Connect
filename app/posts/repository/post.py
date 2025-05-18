@@ -70,3 +70,15 @@ class PostRepository:
         result = await self.db_session.execute(query)
         posts = result.scalars().all()
         return [PostSchema.model_validate(post) for post in posts if post is not None]
+
+    async def get_posts_by_photo_or_not(self, has_photo: bool) -> list[PostSchema]:
+        if has_photo:
+            query = select(Posts).where(Posts.photo_url.isnot(None))
+        else:
+            query = select(Posts).where(Posts.photo_url.is_(None))
+        async with self.db_session as session:
+            result = await session.execute(query)
+            posts = result.scalars().all()
+            return [
+                PostSchema.model_validate(post) for post in posts if post is not None
+            ]
