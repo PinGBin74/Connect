@@ -17,7 +17,15 @@ celery.conf.update(
     beat_schedule={
         "delete-old-posts": {
             "task": "app.infrastructure.celery.tasks.delete_old_posts",
-            "schedule": crontab(hour="*"),
+            "schedule": crontab(hour="*/6"),  # Run every 6 hours
         },
+        "delete-old-posts-from-redis": {
+            "task": "app.infrastructure.celery.tasks.delete_old_posts_from_redis",
+            "schedule": crontab(hour="*/12"),  # Run every 12 hours
+        },
+        # 'periodic-delete-posts': {
+        #     'task': 'app.infrastructure.celery.tasks.periodic_delete_posts',
+        #     'schedule': crontab(hour=0, minute=0, day_of_week='monday'),  # Запуск каждый понедельник в полночь
+        # },
     },
 )
