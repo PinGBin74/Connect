@@ -20,3 +20,7 @@ class UserNotFound(Exception):
 
 class PostNotFound(Exception):
     detail = "Post was not found"
+
+
+class UserAlreadyExists(Exception):
+    detail = "User already exists"
