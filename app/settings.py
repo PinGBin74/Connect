@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+import os
 
 
 class Settings(BaseSettings):
@@ -27,7 +28,7 @@ class Settings(BaseSettings):
     CLIENT_SECRET: str = ""
 
     class Config:
-        env_file = ".local.env"
+        env_file = ".env.test" if os.getenv("PYTEST_CURRENT_TEST") else ".local.env"
         env_file_encoding = "utf-8"
 
     @property

@@ -18,5 +18,4 @@ logfile
 .cursor
 fastApi_Stepik
 .DS_Store
-tests/
 celerybeat-schedule*

@@ -43,8 +43,8 @@ class PostService:
     async def update_post_name(
         self, post_id: int, content: str, user_id: int
     ) -> PostSchema:
-        post = await self.post_repository.get_user_post(
-            user_id=user_id, post_id=post_id
+        post = await self.post_repository.get_user_posts_by_username(
+            post_id=post_id, user_id=user_id
         )
         if not post:
             raise PostNotFound
@@ -58,8 +58,8 @@ class PostService:
         return PostSchema.model_validate(updated_post)
 
     async def delete_post(self, post_id: int, user_id: int) -> None:
-        post = await self.post_repository.get_user_post(
-            user_id=user_id, post_id=post_id
+        post = await self.post_repository.get_user_posts_by_username(
+            post_id=post_id, user_id=user_id
         )
         if not post:
             raise PostNotFound

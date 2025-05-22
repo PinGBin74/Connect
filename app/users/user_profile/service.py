@@ -13,6 +13,11 @@ class UserService:
     auth_service: AuthService
 
     async def create_user(self, username: str, password: str) -> UserLoginSchema:
+        # Check if user already exists
+        existing_user = await self.user_repository.get_user_by_username(username)
+        if existing_user:
+            raise UserAlreadyExists(UserAlreadyExists.detail)
+
         user_data = UserCreateSchema(username=username, password=password)
         user = await self.user_repository.create_user(user_data)
         access_token = self.auth_service.generate_access_token(user_id=user.id)
@@ -26,7 +31,7 @@ class UserService:
             user_data.username
         )
         if existing_user:
-            raise UserAlreadyExists()
+            raise UserAlreadyExists(UserAlreadyExists.detail)
 
         user = await self.user_repository.create_user(user_data)
         access_token = self.auth_service.generate_access_token(user_id=user.id)
