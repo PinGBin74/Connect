@@ -12,7 +12,7 @@ from app.settings import Settings
 os.environ["DB_NAME"] = "connect_test_db"
 os.environ["DB_HOST"] = "0.0.0.0"
 os.environ["DB_PORT"] = "5432"
-os.environ["DB_USER"] = "postgres"
+os.environ["DB_USER"] = "connect"
 os.environ["DB_PASSWORD"] = "password"
 os.environ["DB_DRIVER"] = "postgresql+asyncpg"
 
