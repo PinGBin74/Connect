@@ -158,6 +158,11 @@ jobs:
         run: |
           poetry run uvicorn app.main:app --host 0.0.0.0 --port 8080 &
           sleep 20  # Increased wait time to ensure app is fully started
+          
+          # Check if the application is running
+          echo "Checking if FastAPI is running..."
+          curl -f http://localhost:8080/docs || (echo "FastAPI is not running" && exit 1)
+          echo "FastAPI is running successfully"
 
       - name: Download API docs as static files
         run: |
@@ -181,10 +186,18 @@ jobs:
               <p>Redirecting to <a href="index.html">API documentation</a>...</p>
           </body>
           </html>' > docs/404.html
+          
+          # Debug information
+          echo "Listing contents of docs directory:"
+          ls -la docs/
+          echo "Contents of index.html:"
+          head -n 5 docs/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
-          force_orphan: true  # This will ensure clean deployment
+          force_orphan: true
+          commit_message: "Deploy API documentation"
+          enable_jekyll: false  # Disable Jekyll processing
