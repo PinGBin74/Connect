@@ -6,10 +6,15 @@ PORT ?= 8080
 .PHONY: run install uninstall help
 
 run: ## Run the application using uvicorn with provided arguments on defaults
-	# poetry run gunicorn app.main:app -c gunicorn.conf.py
-	#poetry run gunicorn app.main:app --worker-class uvicorn.workers.UvicornWorker
 	uvicorn app.main:app --host 127.0.0.1 --port 8080 --reload --env-file .local.env
 	# uvicorn app.main:app --host 127.0.0.1 --port 8080 --reload 
+
+start-celery-beat: ## Start celery beat
+	celery -A app.infrastructure.celery.conf beat --loglevel=info
+
+start-celery-worker: ## Start celery worker
+	celery -A app.infrastructure.celery.conf worker --loglevel=info
+
 
 install: ## Install a dependency using poetry
 	@echo "Installing dependency $(LIBRARY)"
