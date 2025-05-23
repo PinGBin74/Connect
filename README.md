@@ -3,52 +3,52 @@
 <div align="center">
 
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 ![Celery](https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white)
-![Yandex.Disk](https://img.shields.io/badge/Yandex.Disk-FF0000?style=for-the-badge&logo=yandex&logoColor=white)
+<img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/YandexDisk.png" alt="Yandex.Disk" width="28" height="28"/> Yandex.Disk
 
 </div>
 
-## 🌟 Overview | Обзор
+## 🌟 Overview
 
-Connect - это мощный, масштабируемый и современный API социальной платформы, построенный на FastAPI. Он предоставляет надежную основу для создания социальных сетей с функциями управления пользователями, обмена контентом и взаимодействия в реальном времени.
+Connect is a powerful, scalable, and modern social platform API built with FastAPI. It provides a robust foundation for building social networking applications with features like user management, content sharing, and real-time interactions.
 
-## ✨ Key Features | Основные возможности
+## ✨ Key Features
 
-- 🔐 **Secure Authentication System | Система безопасной аутентификации**
-  - JWT-based authentication | Аутентификация на основе JWT
-  - Role-based access control | Контроль доступа на основе ролей
-  - Secure password hashing | Безопасное хеширование паролей
+- 🔐 **Secure Authentication System**
+  - JWT-based authentication
+  - Role-based access control
+  - Secure password hashing
 
-- 👥 **User Management | Управление пользователями**
-  - User profiles | Профили пользователей
-  - User settings | Настройки пользователей
-  - Subscription management | Управление подписками
-  - Social connections | Социальные связи
+- 👥 **User Management**
+  - User profiles
+  - User settings
+  - Subscription management
+  - Social connections
 
-- 📝 **Content Management | Управление контентом**
-  - Post creation and management | Создание и управление постами
-  - Rich media support | Поддержка медиафайлов
-  - Content moderation | Модерация контента
+- 📝 **Content Management**
+  - Post creation and management
+  - Rich media support
+  - Content moderation
 
-- 🔄 **Real-time Features | Функции реального времени**
-  - Asynchronous processing with Celery | Асинхронная обработка с Celery
-  - Background task management | Управление фоновыми задачами
-  - Event-driven architecture | Событийно-ориентированная архитектура
+- 🔄 **Real-time Features**
+  - Asynchronous processing with Celery
+  - Background task management
+  - Event-driven architecture
 
-- 🛡️ **Security & Monitoring | Безопасность и мониторинг**
-  - Sentry integration for error tracking | Интеграция Sentry для отслеживания ошибок
-  - CORS middleware | CORS middleware
-  - Comprehensive logging | Комплексное логирование
-  - Rate limiting | Ограничение частоты запросов
+- 🛡️ **Security & Monitoring**
+  - Sentry integration for error tracking
+  - CORS middleware
+  - Comprehensive logging
+  - Rate limiting
 
-- 💾 **Yandex.Disk Integration | Интеграция с Яндекс.Диском**
-  - File storage and management | Хранение и управление файлами
-  - Automatic file synchronization | Автоматическая синхронизация файлов
-  - Secure file sharing | Безопасный обмен файлами
+- 💾 **Yandex.Disk Integration**
+  - File storage and management
+  - Automatic file synchronization
+  - Secure file sharing
 
 ## 🛠️ Technology Stack
 
@@ -65,7 +65,7 @@ Connect - это мощный, масштабируемый и современ�
 ### Prerequisites
 
 - Docker and Docker Compose
-- Python 3.11+
+- Python 3.12+
 - Make (optional, for using Makefile commands)
 
 ### Quick Start
@@ -114,8 +114,6 @@ The project includes several useful make commands to simplify development:
 make run              # Run the application with uvicorn (host: 127.0.0.1, port: 8080)
 make start-celery-beat    # Start Celery beat scheduler
 make start-celery-worker  # Start Celery worker
-make install LIBRARY=<package>  # Install a new dependency
-make uninstall LIBRARY=<package>  # Remove a dependency
 make migrate-create MIGRATION="<message>"  # Create a new database migration
 make migrate-apply  # Apply pending database migrations
 make help          # Show all available commands
@@ -131,7 +129,7 @@ Once the application is running, you can access:
 
 Run the test suite:
 ```bash
-make test
+pytest test
 ```
 
 ## 🐳 Docker Support
@@ -142,39 +140,39 @@ The project includes Docker configuration for easy deployment:
 - `docker-compose.yml` - Development environment
 - `docker-compose.test.yml` - Testing environment
 
-## 📦 Project Structure | Структура проекта
+## 📦 Project Structure
 
 ```
 connect/
 ├── app/
-│   ├── users/                    # User management | Управление пользователями
-│   │   ├── auth/                # Authentication | Аутентификация
-│   │   ├── user_profile/        # User profiles | Профили пользователей
-│   │   ├── subscription/        # Subscription management | Управление подписками
-│   │   └── users_settings/      # User settings | Настройки пользователей
+│   ├── users/                    # User management
+│   │   ├── auth/                # Authentication
+│   │   ├── user_profile/        # User profiles
+│   │   ├── subscription/        # Subscription management
+│   │   └── users_settings/      # User settings
 │   │
-│   ├── posts/                   # Content management | Управление контентом
-│   │   ├── handlers/           # API endpoints | API эндпоинты
-│   │   ├── models/             # Database models | Модели базы данных
-│   │   └── services/           # Business logic | Бизнес-логика
+│   ├── posts/                   # Content management
+│   │   ├── handlers/           # API endpoints
+│   │   ├── models/             # Database models
+│   │   └── services/           # Business logic
 │   │
-│   ├── infrastructure/          # Core infrastructure | Основная инфраструктура
-│   │   ├── celery/             # Celery configuration | Конфигурация Celery
-│   │   ├── database/           # Database setup | Настройка базы данных
-│   │   └── redis/              # Redis configuration | Конфигурация Redis
+│   ├── infrastructure/          # Core infrastructure
+│   │   ├── celery/             # Celery configuration
+│   │   ├── database/           # Database setup
+│   │   └── redis/              # Redis configuration
 │   │
-│   ├── yandex_disk/            # Yandex.Disk integration | Интеграция с Яндекс.Диском
-│   │   ├── handlers/           # API endpoints | API эндпоинты
-│   │   ├── models/             # Data models | Модели данных
-│   │   └── services/           # Yandex.Disk API integration | Интеграция с API Яндекс.Диска
+│   ├── yandex_disk/            # Yandex.Disk integration
+│   │   ├── handlers/           # API endpoints
+│   │   ├── models/             # Data models
+│   │   └── services/           # Yandex.Disk API integration
 │   │
-│   ├── main.py                 # Application entry point | Точка входа приложения
-│   ├── settings.py             # Application settings | Настройки приложения
-│   └── dependecy.py            # Dependency injection | Внедрение зависимостей
+│   ├── main.py                 # Application entry point
+│   ├── settings.py             # Application settings
+│   └── dependecy.py            # Dependency injection
 │
-├── tests/                      # Test suite | Набор тестов
-├── docker-compose.yml          # Docker configuration | Конфигурация Docker
-└── makefile                    # Development commands | Команды разработки
+├── tests/                      # Test suite
+├── docker-compose.yml          # Docker configuration
+└── makefile                    # Development commands
 ```
 
 ## 🤝 Contributing
@@ -188,10 +186,3 @@ connect/
 ## 👥 Authors
 
 - Anton Fayfer
-
-## 🙏 Acknowledgments
-
-- FastAPI team for the amazing framework
-- All contributors who have helped shape this project
-
----
