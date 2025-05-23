@@ -7,10 +7,6 @@ from alembic import context
 from app.infrastructure.database.models import Base
 from app.settings import Settings
 
-from app.users.user_profile.models import UserProfile
-from app.posts.models import Posts
-from app.users.subscription.models import subscriptions
-from app.users.users_settings.models import UserSettings
 
 config = context.config
 
