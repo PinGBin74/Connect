@@ -177,13 +177,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget
-          mkdir -p docs
           # Download Swagger UI
-          wget -O docs/index.html http://localhost:8080/docs
+          wget -O index.html http://localhost:8080/docs
           # Download ReDoc
-          wget -O docs/redoc.html http://localhost:8080/redoc
+          wget -O redoc.html http://localhost:8080/redoc
           # Download OpenAPI schema
-          wget -O docs/openapi.json http://localhost:8080/openapi.json
+          wget -O openapi.json http://localhost:8080/openapi.json
           # Create a simple index page
           echo '<!DOCTYPE html>
           <html>
@@ -194,13 +193,13 @@ jobs:
           <body>
               <p>Redirecting to <a href="index.html">API documentation</a>...</p>
           </body>
-          </html>' > docs/404.html
+          </html>' > 404.html
           
           # Debug information
-          echo "Listing contents of docs directory:"
-          ls -la docs/
+          echo "Listing contents of directory:"
+          ls -la
           echo "Contents of index.html:"
-          head -n 5 docs/index.html
+          head -n 5 index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -210,7 +209,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./docs
+          path: ./
 
       - name: Deploy to GitHub Pages
         id: deployment
