@@ -157,18 +157,34 @@ jobs:
           POSTGRES_PORT: 5432
         run: |
           poetry run uvicorn app.main:app --host 0.0.0.0 --port 8080 &
-          sleep 10  # Дайте время серверу запуститься
+          sleep 20  # Increased wait time to ensure app is fully started
 
       - name: Download API docs as static files
         run: |
           sudo apt-get update
           sudo apt-get install -y wget
-          wget -r -l 1 -np -k http://localhost:8080/docs/ -P docs/
-          mv docs/localhost:8080/docs/* docs/
-          rm -rf docs/localhost:8080
+          mkdir -p docs
+          # Download Swagger UI
+          wget -O docs/index.html http://localhost:8080/docs
+          # Download ReDoc
+          wget -O docs/redoc.html http://localhost:8080/redoc
+          # Download OpenAPI schema
+          wget -O docs/openapi.json http://localhost:8080/openapi.json
+          # Create a simple index page
+          echo '<!DOCTYPE html>
+          <html>
+          <head>
+              <title>Connect API Documentation</title>
+              <meta http-equiv="refresh" content="0; url=index.html" />
+          </head>
+          <body>
+              <p>Redirecting to <a href="index.html">API documentation</a>...</p>
+          </body>
+          </html>' > docs/404.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
+          force_orphan: true  # This will ensure clean deployment
