@@ -8,41 +8,47 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 ![Celery](https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white)
+![Yandex.Disk](https://img.shields.io/badge/Yandex.Disk-FF0000?style=for-the-badge&logo=yandex&logoColor=white)
 
 </div>
 
-## 🌟 Overview
+## 🌟 Overview | Обзор
 
-Connect is a powerful, scalable, and modern social platform API built with FastAPI. It provides a robust foundation for building social networking applications with features like user management, content sharing, and real-time interactions.
+Connect - это мощный, масштабируемый и современный API социальной платформы, построенный на FastAPI. Он предоставляет надежную основу для создания социальных сетей с функциями управления пользователями, обмена контентом и взаимодействия в реальном времени.
 
-## ✨ Key Features
+## ✨ Key Features | Основные возможности
 
-- 🔐 **Secure Authentication System**
-  - JWT-based authentication
-  - Role-based access control
-  - Secure password hashing
+- 🔐 **Secure Authentication System | Система безопасной аутентификации**
+  - JWT-based authentication | Аутентификация на основе JWT
+  - Role-based access control | Контроль доступа на основе ролей
+  - Secure password hashing | Безопасное хеширование паролей
 
-- 👥 **User Management**
-  - User profiles
-  - User settings
-  - Subscription management
-  - Social connections
+- 👥 **User Management | Управление пользователями**
+  - User profiles | Профили пользователей
+  - User settings | Настройки пользователей
+  - Subscription management | Управление подписками
+  - Social connections | Социальные связи
 
-- 📝 **Content Management**
-  - Post creation and management
-  - Rich media support
-  - Content moderation
+- 📝 **Content Management | Управление контентом**
+  - Post creation and management | Создание и управление постами
+  - Rich media support | Поддержка медиафайлов
+  - Content moderation | Модерация контента
 
-- 🔄 **Real-time Features**
-  - Asynchronous processing with Celery
-  - Background task management
-  - Event-driven architecture
+- 🔄 **Real-time Features | Функции реального времени**
+  - Asynchronous processing with Celery | Асинхронная обработка с Celery
+  - Background task management | Управление фоновыми задачами
+  - Event-driven architecture | Событийно-ориентированная архитектура
 
-- 🛡️ **Security & Monitoring**
-  - Sentry integration for error tracking
-  - CORS middleware
-  - Comprehensive logging
-  - Rate limiting
+- 🛡️ **Security & Monitoring | Безопасность и мониторинг**
+  - Sentry integration for error tracking | Интеграция Sentry для отслеживания ошибок
+  - CORS middleware | CORS middleware
+  - Comprehensive logging | Комплексное логирование
+  - Rate limiting | Ограничение частоты запросов
+
+- 💾 **Yandex.Disk Integration | Интеграция с Яндекс.Диском**
+  - File storage and management | Хранение и управление файлами
+  - Automatic file synchronization | Автоматическая синхронизация файлов
+  - Secure file sharing | Безопасный обмен файлами
 
 ## 🛠️ Technology Stack
 
@@ -80,7 +86,7 @@ cp .local.env.example .local.env
 docker-compose up -d
 ```
 
-The API will be available at `http://localhost:8000`
+The API will be available at `http://localhost:8080`
 
 ### Development Setup
 
@@ -118,8 +124,8 @@ make help          # Show all available commands
 ## 📚 API Documentation
 
 Once the application is running, you can access:
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
+- Swagger UI: `http://localhost:8080/docs`
+- ReDoc: `http://localhost:8080/redoc`
 
 ## 🧪 Testing
 
@@ -136,18 +142,39 @@ The project includes Docker configuration for easy deployment:
 - `docker-compose.yml` - Development environment
 - `docker-compose.test.yml` - Testing environment
 
-## 📦 Project Structure
+## 📦 Project Structure | Структура проекта
 
 ```
 connect/
 ├── app/
-│   ├── users/           # User management
-│   ├── posts/           # Content management
-│   ├── infrastructure/  # Core infrastructure
-│   └── yandex_disk/     # File storage integration
-├── tests/              # Test suite
-├── docker-compose.yml  # Docker configuration
-└── makefile           # Development commands
+│   ├── users/                    # User management | Управление пользователями
+│   │   ├── auth/                # Authentication | Аутентификация
+│   │   ├── user_profile/        # User profiles | Профили пользователей
+│   │   ├── subscription/        # Subscription management | Управление подписками
+│   │   └── users_settings/      # User settings | Настройки пользователей
+│   │
+│   ├── posts/                   # Content management | Управление контентом
+│   │   ├── handlers/           # API endpoints | API эндпоинты
+│   │   ├── models/             # Database models | Модели базы данных
+│   │   └── services/           # Business logic | Бизнес-логика
+│   │
+│   ├── infrastructure/          # Core infrastructure | Основная инфраструктура
+│   │   ├── celery/             # Celery configuration | Конфигурация Celery
+│   │   ├── database/           # Database setup | Настройка базы данных
+│   │   └── redis/              # Redis configuration | Конфигурация Redis
+│   │
+│   ├── yandex_disk/            # Yandex.Disk integration | Интеграция с Яндекс.Диском
+│   │   ├── handlers/           # API endpoints | API эндпоинты
+│   │   ├── models/             # Data models | Модели данных
+│   │   └── services/           # Yandex.Disk API integration | Интеграция с API Яндекс.Диска
+│   │
+│   ├── main.py                 # Application entry point | Точка входа приложения
+│   ├── settings.py             # Application settings | Настройки приложения
+│   └── dependecy.py            # Dependency injection | Внедрение зависимостей
+│
+├── tests/                      # Test suite | Набор тестов
+├── docker-compose.yml          # Docker configuration | Конфигурация Docker
+└── makefile                    # Development commands | Команды разработки
 ```
 
 ## 🤝 Contributing
