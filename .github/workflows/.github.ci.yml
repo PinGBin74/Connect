@@ -100,9 +100,26 @@ jobs:
           echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list
           sudo apt update && sudo apt install ngrok
           ngrok config add-authtoken ${{ secrets.NGROK_SECRET_KEY }}
-          nohup ngrok http 8000 & sleep 5
-          curl 127.0.0.1:4040/api/tunnels > tunnels.json
+          ngrok http 8000 --log=stdout > ngrok.log 2>&1 &
+          sleep 5
+          if ! pgrep ngrok > /dev/null; then
+            echo "Failed to start ngrok"
+            cat ngrok.log
+            exit 1
+          fi
+          curl -s http://127.0.0.1:4040/api/tunnels > tunnels.json
+          if [ ! -s tunnels.json ]; then
+            echo "Failed to get ngrok tunnels"
+            cat ngrok.log
+            exit 1
+          fi
 
       - name: Show public URL
         run: |
           cat tunnels.json
+          PUBLIC_URL=$(jq -r '.tunnels[0].public_url' tunnels.json)
+          if [ -z "$PUBLIC_URL" ]; then
+            echo "Failed to get public URL"
+            exit 1
+          fi
+          echo "Public URL: $PUBLIC_URL"
