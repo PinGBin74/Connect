@@ -85,7 +85,7 @@ jobs:
         run: poetry run pytest tests/unit
 
   deploy:
-    if: ${{ true }} 
+    if: ${{ true }}
     needs: [lint, unit-test]
     runs-on: ubuntu-latest
     environment: production

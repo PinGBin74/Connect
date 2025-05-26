@@ -1,6 +1,27 @@
 version: '3.9'
 
 services:
+  app:
+    build: .
+    restart: always
+    depends_on:
+      - db
+      - cache
+    environment:
+      - ENVIRONMENT=production
+      - DB_PASSWORD=${DB_PASSWORD}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - SENTRY_DSN=${SENTRY_DSN}
+      - YANDEX_DISK_TOKEN=${YANDEX_DISK_TOKEN}
+      - YANDEX_DISK_BASE_PATH=${YANDEX_DISK_BASE_PATH}
+      - YANDEX_DISK_API_URL=${YANDEX_DISK_API_URL}
+      - YANDEX_DISK_UPLOAD_URL=${YANDEX_DISK_UPLOAD_URL}
+      - YANDEX_DISK_PUBLISH_URL=${YANDEX_DISK_PUBLISH_URL}
+      - YANDEX_DISK_INFO_URL=${YANDEX_DISK_INFO_URL}
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+    ports:
+      - '8000:8000'
 
   db:
     image: postgres:16.2
@@ -18,3 +39,7 @@ services:
     restart: always
     ports:
       - '6379:6379'
+
+volumes:
+  postgres_data:
+  redis_data:
