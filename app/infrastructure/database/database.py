@@ -8,7 +8,9 @@ engine = create_async_engine(
     future=True,
     echo=True,
     pool_pre_ping=True,
-    connect_args={"ssl": "require"},  # Добавляем SSL для Render
+    connect_args={
+        "ssl": "require"
+    }
 )
 
 AsyncSessionFactory = async_sessionmaker(
