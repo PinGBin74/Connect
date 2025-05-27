@@ -105,13 +105,12 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-            context: .
-            file: ./Dockerfile
-            push: true
-            tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/connect:latest
-            build-args: |
-              ENVIRONMENT=production           
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/connect:latest
+          build-args: |
+            ENVIRONMENT=production
 
       - name: Download and start ngrok
         run: |
@@ -143,3 +142,14 @@ jobs:
             exit 1
           fi
           echo "Public URL: $PUBLIC_URL"
+          send_message:
+            name: Send success message
+            runs-on: ubuntu-latest
+            needs: build_and_push_to_docker_hub
+            steps:
+            - name: send message
+              uses: appleboy/telegram-action@master
+              with:
+                to: ${{ secrets.TELEGRAM_TO }}
+                token: ${{ secrets.TELEGRAM_TOKEN }}
+                message: Ура !  ${{ github.workflow }} для репозитория ${{ github.repository }} успешно выполнен!
