@@ -105,13 +105,13 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/connect:latest
-          build-args: |
-            ENVIRONMENT=production
-            
+            context: .
+            file: ./Dockerfile
+            push: true
+            tags: |
+              ${{ secrets.DOCKERHUB_USERNAME }}/connect:latest
+            build-args: |
+              ENVIRONMENT=production           
 
       - name: Download and start ngrok
         run: |
