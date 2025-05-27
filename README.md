@@ -170,8 +170,12 @@ connect/
 │   ├── settings.py             # Application settings
 │   └── dependecy.py            # Dependency injection
 │
+├── infra/                       # Infrastructure configuration
+│   ├── Dockerfile              # Main application Dockerfile
+│   ├── docker-compose.yml      # Docker services configuration
+│   └── .dockerignore           # Docker build context exclusions
+│
 ├── tests/                      # Test suite
-├── docker-compose.yml          # Docker configuration
 └── makefile                    # Development commands
 ```
 
