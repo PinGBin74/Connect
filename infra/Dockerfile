@@ -13,5 +13,5 @@ COPY . .
 # Install wait-for-it script
 RUN apt-get update && apt-get install -y wait-for-it
 
-# Wait for database to be ready and then run migrations
-CMD ["sh", "-c", "wait-for-it db:5432 -- poetry run alembic upgrade head && poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"]
+# Wait for database using DATABASE_URL host and run migrations
+CMD ["sh", "-c", "wait-for-it $(echo $DATABASE_URL | sed 's/.*@\\(.*\\):.*/\\1/'):5432 --timeout=30 -- poetry run alembic upgrade head && poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"]
