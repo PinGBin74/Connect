@@ -111,6 +111,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/connect:latest
           build-args: |
             ENVIRONMENT=production
+            
 
       - name: Download and start ngrok
         run: |
