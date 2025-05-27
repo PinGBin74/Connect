@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     DB_PASSWORD: str = "password"
     DB_DRIVER: str = "postgresql+asyncpg"
     DB_NAME: str = "connect_db"
+    DATABASE_URL: str = ""
 
     # Cache settings
     CACHE_PORT: int = 6379
