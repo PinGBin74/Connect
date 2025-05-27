@@ -15,7 +15,8 @@ class Settings(BaseSettings):
     # Cache settings
     CACHE_PORT: int = 6379
     CACHE_DB: int = 0
-    CACHE_HOST: str = "0.0.0.0"
+    CACHE_HOST: str = ""
+    REDIS_URL: str = ""
 
     # JWT settings
     JWT_SECRET_KEY: str = "secret_key"
@@ -47,7 +48,13 @@ class Settings(BaseSettings):
     @property
     def db_url(self) -> str:
         if self.DATABASE_URL:
+            # Remove sslmode parameter if present
+            url = self.DATABASE_URL.split("?")[0]
             if self.DATABASE_URL.startswith("postgresql+asyncpg://"):
-                return self.DATABASE_URL
-            return self.DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://")
+                return url
+            return url.replace("postgresql://", "postgresql+asyncpg://")
         return f"{self.DB_DRIVER}://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+
+    @property
+    def redis_url(self) -> str:
+        return self.REDIS_URL

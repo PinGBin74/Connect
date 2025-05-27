@@ -1,11 +1,13 @@
 from celery import Celery
 from celery.schedules import crontab
+from app.settings import Settings
 
+settings = Settings()
 
 celery = Celery(
     "app.infrastructure.celery",
-    broker="redis://localhost:6379/0",
-    backend="redis://localhost:6379/0",
+    broker=settings.redis_url,
+    backend=settings.redis_url,
     include=["app.infrastructure.celery.tasks"],
 )
 celery.conf.update(
