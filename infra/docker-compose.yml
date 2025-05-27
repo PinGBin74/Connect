@@ -2,7 +2,9 @@ version: '3.9'
 
 services:
   app:
-    build: .
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
     restart: always
     depends_on:
       - db
