@@ -4,7 +4,11 @@ from app.settings import Settings
 
 
 engine = create_async_engine(
-    url=Settings().db_url, future=True, echo=True, pool_pre_ping=True
+    url=Settings().db_url,
+    future=True,
+    echo=True,
+    pool_pre_ping=True,
+    connect_args={"ssl": "require"},  # Добавляем SSL для Render
 )
 
 AsyncSessionFactory = async_sessionmaker(
