@@ -70,7 +70,7 @@ jobs:
           poetry install --no-root
 
       - name: Start docker compose services
-        run: docker compose up -d
+        run: cd infra && docker compose up -d
 
       - name: Wait for services to be ready
         run: sleep 15
