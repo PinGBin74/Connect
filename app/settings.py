@@ -3,15 +3,20 @@ from typing import List
 
 
 class Settings(BaseSettings):
+    # Database settings
     DB_HOST: str = "0.0.0.0"
     DB_PORT: int = 5432
     DB_USER: str = "connect"
     DB_PASSWORD: str = "password"
     DB_DRIVER: str = "postgresql+asyncpg"
     DB_NAME: str = "connect_db"
+
+    # Cache settings
     CACHE_PORT: int = 6379
     CACHE_DB: int = 0
     CACHE_HOST: str = "0.0.0.0"
+
+    # JWT settings
     JWT_SECRET_KEY: str = "secret_key"
     JWT_ENCODE_ALGORITHM: str = "HS256"
     SENTRY_DSN: str = ""
@@ -39,5 +44,5 @@ class Settings(BaseSettings):
         env_file_encoding = "utf-8"
 
     @property
-    def db_url(self):
+    def db_url(self) -> str:
         return f"{self.DB_DRIVER}://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"

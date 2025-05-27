@@ -1,5 +1,7 @@
+import os
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
+import psycopg2
 from app.settings import Settings
 from app.users.auth.handlers import router as auth_router
 from app.posts.handlers import router as posts_router
@@ -32,6 +34,12 @@ app.add_middleware(
     allow_headers=["*"],
     max_age=3600,
 )
+
+try:
+    conn = psycopg2.connect(os.environ.get("DATABASE_URL"))
+    print("Successfully connected to the database")
+except Exception as e:
+    print(f"Error connecting to the database: {e}")
 
 
 @app.get("/")
