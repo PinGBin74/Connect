@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from typing import List
 
 
 class Settings(BaseSettings):
@@ -14,6 +15,13 @@ class Settings(BaseSettings):
     JWT_SECRET_KEY: str = "secret_key"
     JWT_ENCODE_ALGORITHM: str = "HS256"
     SENTRY_DSN: str = ""
+
+    # CORS settings
+    CORS_ORIGINS: List[str] = [
+        "http://localhost:3000",
+        "http://localhost:8000",
+        "https://connect-bo5f.onrender.com",
+    ]
 
     # Yandex Disk settings
     YANDEX_DISK_TOKEN: str = ""

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from app.settings import Settings
 from app.users.auth.handlers import router as auth_router
 from app.posts.handlers import router as posts_router
@@ -25,11 +26,18 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allow_headers=["*"],
+    max_age=3600,
 )
+
+
+@app.get("/")
+async def root():
+    return RedirectResponse(url="/docs")
+
 
 app.include_router(posts_router)
 app.include_router(user_router)
