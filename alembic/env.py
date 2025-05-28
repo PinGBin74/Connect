@@ -6,10 +6,10 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from alembic import context
 from app.infrastructure.database.models import Base
 from app.settings import Settings
-from app.posts.models import Posts
 from app.users.subscription.models import subscriptions
 from app.users.user_profile.models import UserProfile
 from app.users.users_settings.models import UserSettings
+from app.posts.models import Posts
 
 config = context.config
 

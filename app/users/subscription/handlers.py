@@ -60,3 +60,11 @@ async def get_following_posts(
     subscription_service: SubscripionService = Depends(get_subscription_service),
 ) -> list[SubscriptionPostsResponse]:
     return await subscription_service.get_following_posts(follower_id=follower_id)
+
+
+@router.get("/folowers", response_model=list[SubscriptionResponse])
+async def get_followers(
+    follower_id: int = Depends(get_request_user_id),
+    subscription_service: SubscripionService = Depends(get_subscription_service),
+) -> list[SubscriptionResponse]:
+    return await subscription_service.get_followers(follower_id=follower_id)

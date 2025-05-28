@@ -34,3 +34,6 @@ class SubscripionService:
         return await self.subscription_repository.get_following_posts(
             follower_id=follower_id
         )
+
+    async def get_followers(self, follower_id: int) -> list[SubscriptionResponse]:
+        return await self.subscription_repository.get_followers(follower_id=follower_id)

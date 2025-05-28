@@ -79,3 +79,14 @@ class SubscriptionRepository:
             result = await session.execute(query)
             posts = result.scalars().all()
             return [PostSchema.model_validate(post) for post in posts]
+
+    async def get_followers(self, follower_id: int) -> list[SubscriptionResponse]:
+        async with self.db_session as session:
+            query = (
+                select(UserProfile)
+                .join(subscriptions, subscriptions.c.follower_id == UserProfile.id)
+                .where(subscriptions.c.following_id == follower_id)
+            )
+            result = await session.execute(query)
+            users = result.scalars().all()
+            return [SubscriptionResponse.model_validate(user) for user in users]
