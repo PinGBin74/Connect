@@ -24,9 +24,9 @@ async def create_subscription(
     )
     if not success:
         return SubscriptionMessageResponse(
-            message=f"Вы подписались на пользователя {subscription_data.username}"
+            message=f"You subscribed to {subscription_data.username}"
         )
-    return SubscriptionMessageResponse(message="Не удалось подписаться на пользователя")
+    return SubscriptionMessageResponse(message="Failed to subcribe")
 
 
 @router.delete("", response_model=SubscriptionMessageResponse)
