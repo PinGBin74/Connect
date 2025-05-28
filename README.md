@@ -187,6 +187,73 @@ connect/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+
+## 🌐 Demo and Documentation
+
+### Live Demo on Render
+
+The application is deployed on Render and available at: [https://connect-bo5f.onrender.com](https://connect-bo5f.onrender.com)
+
+- **Swagger UI**: [https://connect-bo5f.onrender.com/docs](https://connect-bo5f.onrender.com/docs)
+- **Database will expire on:** June 26, 2025
+
+### Main API Endpoints
+
+- **User**
+  - `POST /user` — Register a new user (username, password, photo)
+    
+    ![Create User](docs/screenshots/Screenshot 2025-05-28 at 17.03.32.png)
+    *Example: Creating a user via the /user endpoint*
+
+- **Auth**
+  - `POST /auth/login` — User login
+
+- **Posts**
+  - `GET /posts/all` — Get all posts
+  - `GET /posts/id/{post_id}` — Get post by ID
+    
+    ![Get Post by ID](docs/screenshots/Screenshot 2025-05-28 at 17.11.20.png)
+    *Example: Retrieving a post by its ID*
+  - `GET /posts/username/{username}` — Get posts by username
+  - `POST /posts/` — Create a post (content, photo)
+    
+    ![Create Post](docs/screenshots/Screenshot 2025-05-28 at 17.04.03.png)
+    *Example: Creating a post via the /posts/ endpoint*
+  - `PATCH /posts/{post_id}` — Update a post
+  - `DELETE /posts/{post_id}` — Delete a post
+  - `GET /posts/photo` — Get posts by photo
+
+- **Subscriptions**
+  - `POST /subscriptions` — Subscribe to a user
+    
+    ![Create Subscription](docs/screenshots/Screenshot 2025-05-28 at 17.22.24.png)
+    *Example: Subscribing to a user*
+  - `DELETE /subscriptions` — Unsubscribe
+  - `GET /subscriptions/following` — Get following list
+    
+    ![Get Following](docs/screenshots/Screenshot 2025-05-28 at 17.22.56.png)
+    *Example: Getting the list of users you follow*
+  - `GET /subscriptions/posts` — Get posts from subscriptions
+  - `GET /subscriptions/followers` — Get followers
+
+- **Settings**
+  - `POST /settings` — Update user settings
+
+### What's on the Screenshots
+
+- **Swagger UI** — Full list of available API endpoints, grouped by category (user, posts, subscriptions, auth, settings).
+
+  ![Swagger UI](docs/screenshots/Screenshot 2025-05-28 at 17.02.46.png)
+  *Example: Swagger UI overview of all endpoints*
+
+All examples in the screenshots are from the real deployment on Render. Use the Swagger UI link above to test the endpoints yourself.
+
+---
+
+In the Technology Stack section above, please note:
+- **PostgreSQL** is used as the main database.
+- **Redis** is used for caching and background task management.
+
 ## 👥 Authors
 
 - Anton Fayfer
