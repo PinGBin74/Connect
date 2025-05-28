@@ -202,7 +202,7 @@ The application is deployed on Render and available at: [https://connect-bo5f.on
 - **User**
   - `POST /user` — Register a new user (username, password, photo)
     
-    ![Create User](docs/screenshots/Screenshot 2025-05-28 at 17.03.32.png)
+    ![Create User](docs/screenshots/create-user.png)
     *Example: Creating a user via the /user endpoint*
 
 - **Auth**
@@ -212,12 +212,12 @@ The application is deployed on Render and available at: [https://connect-bo5f.on
   - `GET /posts/all` — Get all posts
   - `GET /posts/id/{post_id}` — Get post by ID
     
-    ![Get Post by ID](docs/screenshots/Screenshot 2025-05-28 at 17.11.20.png)
+    ![Get Post by ID](docs/screenshots/get-post-by-id.png)
     *Example: Retrieving a post by its ID*
   - `GET /posts/username/{username}` — Get posts by username
   - `POST /posts/` — Create a post (content, photo)
     
-    ![Create Post](docs/screenshots/Screenshot 2025-05-28 at 17.04.03.png)
+    ![Create Post](docs/screenshots/create-post.png)
     *Example: Creating a post via the /posts/ endpoint*
   - `PATCH /posts/{post_id}` — Update a post
   - `DELETE /posts/{post_id}` — Delete a post
@@ -226,12 +226,12 @@ The application is deployed on Render and available at: [https://connect-bo5f.on
 - **Subscriptions**
   - `POST /subscriptions` — Subscribe to a user
     
-    ![Create Subscription](docs/screenshots/Screenshot 2025-05-28 at 17.22.24.png)
+    ![Create Subscription](docs/screenshots/create-subscription.png)
     *Example: Subscribing to a user*
   - `DELETE /subscriptions` — Unsubscribe
   - `GET /subscriptions/following` — Get following list
     
-    ![Get Following](docs/screenshots/Screenshot 2025-05-28 at 17.22.56.png)
+    ![Get Following](docs/screenshots/get-following.png)
     *Example: Getting the list of users you follow*
   - `GET /subscriptions/posts` — Get posts from subscriptions
   - `GET /subscriptions/followers` — Get followers
@@ -243,7 +243,7 @@ The application is deployed on Render and available at: [https://connect-bo5f.on
 
 - **Swagger UI** — Full list of available API endpoints, grouped by category (user, posts, subscriptions, auth, settings).
 
-  ![Swagger UI](docs/screenshots/Screenshot 2025-05-28 at 17.02.46.png)
+  ![Swagger UI](docs/screenshots/swagger-ui.png)
   *Example: Swagger UI overview of all endpoints*
 
 All examples in the screenshots are from the real deployment on Render. Use the Swagger UI link above to test the endpoints yourself.
