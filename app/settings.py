@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     CACHE_DB: int = 0
     CACHE_HOST: str = ""
     REDIS_URL: str = ""
+    INTERNAL_REDIS_URL: str = ""
 
     # JWT settings
     JWT_SECRET_KEY: str = "secret_key"
@@ -57,4 +58,6 @@ class Settings(BaseSettings):
 
     @property
     def redis_url(self) -> str:
+        if self.INTERNAL_REDIS_URL:
+            return self.INTERNAL_REDIS_URL
         return self.REDIS_URL
