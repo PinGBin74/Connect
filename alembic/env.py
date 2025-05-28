@@ -1,23 +1,20 @@
 import asyncio
 from logging.config import fileConfig
-import os
 
 from sqlalchemy.ext.asyncio import create_async_engine
 
 from alembic import context
 from app.infrastructure.database.models import Base
 from app.settings import Settings
+from app.posts.models import Posts
+from app.users.subscription.models import subscriptions
+from app.users.user_profile.models import UserProfile
+from app.users.users_settings.models import UserSettings
 
 config = context.config
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
-
-db_url = os.environ.get("DATABASE_URL", Settings().db_url)
-if not db_url.startswith("postgresql+asyncpg://"):
-    db_url = db_url.replace("postgresql://", "postgresql+asyncpg://")
-
-config.set_main_option("sqlalchemy.url", db_url)
 
 target_metadata = Base.metadata
 
@@ -37,11 +34,12 @@ def do_run_migrations(connection):
 
 
 async def run_migrations_online():
-    connectable = create_async_engine(db_url, future=True)
+    """Run migrations in 'online' mode with async engine"""
+    connectable = create_async_engine(Settings().db_url, future=True)
 
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
 
 
-if __name__ == "__main__":
-    asyncio.run(run_migrations_online())
+# Запуск миграций
+asyncio.run(run_migrations_online())

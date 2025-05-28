@@ -4,7 +4,7 @@ from typing import List
 
 class Settings(BaseSettings):
     # Database settings
-    DB_HOST: str = "0.0.0.0"
+    DB_HOST: str = "localhost"
     DB_PORT: int = 5432
     DB_USER: str = "connect"
     DB_PASSWORD: str = "password"
